@@ -1,0 +1,6 @@
+libxml2-devel
+There is no build-essential in fedora :(
+cdk-devel
+libusb1-devel
+avahi-devel
+libaio-devel

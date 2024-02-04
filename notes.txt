@@ -1,0 +1,27 @@
+https://www.jjj.de/fft/fftpage.html
+
+https://pysdr.org/content/pluto.html
+https://nuclearrambo.com/wordpress/receiving-with-2-channels-on-plutosdr/
+
+https://github.com/LamaBleu/plutoscripts/blob/master/README.txt
+https://www.reddit.com/r/RTLSDR/comments/7h2hh2/plutosdr_enable_2nd_cpu_core_for_better/
+
+fw_setenv attr_name compatible
+fw_setenv attr_val ad9361
+fw_setenv mode 2r2t
+
+cat /proc/cpuinfo - you see one cpu
+fw_setenv maxcpus
+pluto_reboot reset
+
+hostname = pluto
+ipaddr = 192.168.2.5
+ipaddr_host = 192.168.2.10
+netmask = 255.255.255.0
+
+change ip back to 169.254.17.21 to access raspberry pi
+
+https://wiki.analog.com/university/tools/pluto/devs/embedded_code
+https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/arm-linux-gnueabihf/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf.tar.xz
+https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/arm-linux-gnueabihf/
+/usr/local/bin/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin
