@@ -7,7 +7,7 @@ import scipy
 import sys
 
 samp_rate = 30e6
-Fc = 110e6
+Fc = 130e6
 Nsamp = 8192
 NFFT = 256
 Naver = 16
@@ -60,8 +60,9 @@ try:
         ax[0].set_ylim(80,140)
 
         ax[1].cla()
-        ax[1].plot(freq, 180*np.unwrap(np.angle(cross12))/np.pi)
-        ax[1].set_ylim(-180,180)
+        # ax[1].plot(freq, 180*np.unwrap(np.angle(cross12))/np.pi)
+        ax[1].plot(freq, 180*(np.angle(cross12))/np.pi)
+        ax[1].set_ylim(-360,360)
 
         plt.draw()
         plt.pause(0.1)
