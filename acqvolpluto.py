@@ -21,12 +21,9 @@ parser.add_argument('-s',  nargs='?', help='Suffix to append filename with')
 args = parser.parse_args()
 
 if args.N is None:
-    Nacq = int(100) #Some number > 1 should work
-    acq_loop_increment = 0
+    Nacq = np.inf #Some number > 1 should work
 else:
     Nacq = int(args.N)-1 # As one acq will happen always
-    acq_loop_increment = 1
-    
 
 import adi
 import numpy as np
@@ -62,14 +59,15 @@ try:
     data_group.attrs["g1"] = int(args.g1)
     data_group.attrs["g2"] = int(args.g2)
     timestamp = time.time()
-    samples = sdr.rx() # First RX
-    print (np.array(samples).shape)
+    samples = np.array(sdr.rx()) # First RX
+    print (samples.shape)
     data_group.create_dataset('timestamps', data=np.array([timestamp]), maxshape=(None,))
     data_group.create_dataset('samples', data=np.array([samples]), maxshape=(None, 2, int(args.c)))
     acq_index = 0
     while acq_index < Nacq:
         timestamp = time.time()
-        samples = sdr.rx()
+        print (acq_index, timestamp)
+        samples = np.array(sdr.rx())
 
         len_old_data = data_group['timestamps'].shape[0]
         hf['data/timestamps'].resize((len_old_data + 1), axis=0)
@@ -78,7 +76,7 @@ try:
         hf['data/samples'].resize((len_old_data + 1), axis=0)
         hf['data/samples'][-1:] = np.array(samples)
 
-        acq_index = acq_index+acq_loop_increment
+        acq_index = acq_index+1
 
 except KeyboardInterrupt:
     hf.close()
